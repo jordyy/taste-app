@@ -1,0 +1,41 @@
+html{
+    background: url(https://source.unsplash.com/HAFZE_xZR4o/1900x1000);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}    
+
+ul{ 
+    list-style: none;
+}
+
+.parent-grid {
+    display: grid;
+    grid-template-columns: [line1] 33% [line2] 33% [line3] 33%;
+    grid-template-rows: [row1-start] auto [row1-end] auto [third-line] auto [last-line];
+  }
+
+.grid-cell {
+    background-color: rgba(58,58,58,0.9); 
+    margin: 0.5rem;
+    padding: 0.85rem;
+    border-radius: 1%;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 15rem;
+    width: 15rem;
+    border-radius: 1%;
+}
+
+.card-text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+    color: white;
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+}
