@@ -22,5 +22,3 @@ const ArtistsGrid = ({ artists }) =>
   );
 
 export default ArtistsGrid;
-
-// console.log(topArtists?.items[1].artists[0].name);

@@ -46,18 +46,16 @@ function App() {
                 Log Out
               </button>
             </nav>
-            <Router>
-              <ScrollToTop />
-              <Routes>
-                {!token && <Route path="/login" element={<Login />} />}
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/toptracks" element={<TopTracks />}></Route>
-                <Route path="/" element={<Profile />} />
-              </Routes>
-            </Router>
           </>
         )}
       </header>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          {!token && <Route path="/login" element={<Login />} />}
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

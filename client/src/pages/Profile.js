@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { catchErrors } from "../utils";
 import { getCurrentUserProfile, getCurrentUserTopTracks } from "../spotify";
-import { ArtistsGrid } from "../Components";
 import { TopTracks } from "../pages";
 import "../styles/Profile.css";
+import ArtistsGrid from "../Components/ArtistsGrid";
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -26,11 +26,9 @@ const Profile = () => {
       {profile && (
         <div>
           <h1>lol it's {profile.display_name}'s top tracks</h1>
+          <TopTracks />
         </div>
       )}
-      <div>
-        <TopTracks />
-      </div>
       {topTracks && (
         <main>
           <ArtistsGrid artists={topTracks.items.slice(0, 10)} />

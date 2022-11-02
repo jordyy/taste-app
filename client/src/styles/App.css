@@ -14,6 +14,7 @@ nav {
 
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 .nav-button-container {
@@ -28,7 +29,6 @@ nav {
 }
 
 body {
-background: url(https://source.unsplash.com/HAFZE_xZR4o/1900x1000);
 background-size: cover;
 background-repeat: no-repeat;
 background-position: center center;

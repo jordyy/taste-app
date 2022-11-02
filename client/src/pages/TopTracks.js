@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getCurrentUserTopTracks } from "../spotify";
 import { catchErrors } from "../utils";
-import { ArtistsGrid } from "../Components";
+import ArtistsGrid from "../Components/ArtistsGrid";
 import "../styles/TopTracks.css";
 
 const TopTracks = () => {
