@@ -1,4 +1,5 @@
-const queryString = require("querystring");
+const params = new URLSearchParams();
+
 require("dotenv").config();
 
 const express = require("express");
@@ -60,7 +61,7 @@ app.get("/callback", (req, res) => {
         `${CLIENT_ID}:${CLIENT_SECRET}`
       ).toString("base64")}`,
     },
-    data: queryString.stringify({
+    data: URLSearchParams.toString({
       grant_type: "authorization_code",
       code: code,
       redirect_uri: REDIRECT_URI,
@@ -70,7 +71,7 @@ app.get("/callback", (req, res) => {
       if (response.status === 200) {
         const { access_token, refresh_token, expires_in } = response.data;
 
-        const queryParams = queryString.stringify({
+        const queryParams = URLSearchParams.toString({
           access_token,
           refresh_token,
           expires_in,
@@ -78,7 +79,9 @@ app.get("/callback", (req, res) => {
 
         res.redirect(`http://localhost:3000/?${queryParams}`);
       } else {
-        res.redirect(`?${queryString.stringify({ error: "invalid_token" })}`);
+        res.redirect(
+          `?${URLSearchParams.toString({ error: "invalid_token" })}`
+        );
       }
     })
     .catch((error) => {
@@ -92,7 +95,7 @@ app.get("/refresh_token", (req, res) => {
   axios({
     method: "post",
     url: "https://accounts.spotify.com/api/token",
-    data: queryString.stringify({
+    data: URLSearchParams.toString({
       grant_type: "refresh_token",
       refresh_token: refresh_token,
     }),
