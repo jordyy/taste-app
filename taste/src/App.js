@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ChakraProvider, theme } from '@chakra-ui/react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from 'react-router-dom';
-import { accessToken, logout, getCurrentUserProfile } from './spotifyAuth';
+import { useLocation } from 'react-router-dom';
+import { logout, getCurrentUserProfile } from './spotifyAuth';
 import { catchErrors } from './utils';
-import { TopTracks, Profile, Login } from './pages';
+import { Login } from './pages';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -25,8 +20,12 @@ function App() {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    setToken(accessToken);
+    if (localStorage.getItem('accessToken')) {
+      setToken(localStorage.getItem('accessToken'));
+    }
+  }, []);
 
+  useEffect(() => {
     const fetchData = async () => {
       const { data } = await getCurrentUserProfile();
       setProfile(data);
@@ -36,28 +35,18 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <div className="container">
-        <header className="App-header">
-          {!token ? (
-            <Login />
-          ) : (
-            <>
-              <nav className="nav-button-container">
-                <button className="log-out-button" onClick={logout}>
-                  Log Out
-                </button>
-              </nav>
-            </>
-          )}
-        </header>
-        <Router>
-          <ScrollToTop />
-          <Routes>
-            {!token && <Route path="/login" element={<Login />} />}
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </Router>
-      </div>
+      {!token ? (
+        <Login />
+      ) : (
+        <>
+          <nav className="nav-button-container">
+            <button className="log-out-button" onClick={logout}>
+              Log Out
+            </button>
+          </nav>
+        </>
+      )}
+      <ScrollToTop />
     </ChakraProvider>
   );
 }

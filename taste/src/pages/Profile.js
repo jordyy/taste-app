@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { catchErrors } from '../utils';
-import { getCurrentUserProfile, getCurrentUserTopTracks } from '../spotifyAuth';
+import { getCurrentUserProfile } from '../spotifyAuth';
 import { TopTracks } from '../pages';
-import ArtistsGrid from '../Components/ArtistsGrids';
+import ArtistGrid from '../Components/ArtistGrid';
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -12,9 +12,6 @@ const Profile = () => {
     const fetchData = async () => {
       const userProfile = await getCurrentUserProfile();
       setProfile(userProfile.data);
-
-      const userTopTracks = await getCurrentUserTopTracks();
-      setTopTracks(userTopTracks.data);
     };
 
     catchErrors(fetchData());
@@ -30,7 +27,7 @@ const Profile = () => {
       )}
       {topTracks && (
         <main>
-          <ArtistsGrid artists={topTracks.items.slice(0, 10)} />
+          <ArtistGrid artists={topTracks.items.slice(0, 10)} />
         </main>
       )}
     </>
