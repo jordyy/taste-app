@@ -11,7 +11,7 @@ const generateRandomString = length => {
   return result;
 };
 
-const redirect_uri = 'http://localhost:3000/profile';
+const redirect_uri = 'http://localhost:8888/callback';
 const state = generateRandomString(16);
 
 const getReturnParamsFromSpotifyAuth = hash => {

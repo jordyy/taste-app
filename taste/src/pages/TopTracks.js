@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { accessToken } from '../spotifyAuth';
 // import ArtistGrid from '../Components/ArtistGrid';
 // import { getCurrentUserTopTracks } from '../spotifyAuth';
 
-const fetchTracks = async () => {
-  const res = await fetch(
-    'https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=medium_term'
-  );
+const fetchTracks = async (
+  url = 'https://api.spotify.com/v1/me/top/tracks',
+  data = {}
+) => {
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return res.json();
 };
 
@@ -14,7 +22,7 @@ const TopTracks = () => {
   // const [range, setRange] = useState('short_term');
   // const [topTracks, setTopTracks] = useState('');
 
-  const { data, status } = useQuery('tracks', fetchTracks);
+  const { data, status } = useQuery(['tracks'], fetchTracks);
 
   console.log('data', data);
 

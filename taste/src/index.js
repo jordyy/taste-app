@@ -1,6 +1,5 @@
 import React, { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
-import * as serviceWorker from './serviceWorker';
 import Routing from './Routing';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -16,5 +15,3 @@ root.render(
     </QueryClientProvider>
   </StrictMode>
 );
-
-serviceWorker.unregister();
