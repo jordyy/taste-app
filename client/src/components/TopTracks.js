@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import apiClient from "../http-common";
 import { useQuery } from "@tanstack/react-query";
-import { Box, Image, Button } from "@chakra-ui/react";
+import { Image, Button, SimpleGrid, Text, Box } from "@chakra-ui/react";
 
 const getTopTracks = ({ queryKey }) => {
   const [, activeRange] = queryKey;
@@ -13,30 +13,34 @@ function TopTracks() {
 
   const { data, refetch } = useQuery(["topTracks", activeRange], getTopTracks);
 
-  console.log("data", data);
-
   return (
     <>
-      <ul>
-        <li>
+      <SimpleGrid columns={3} display="flex" justifyContent="space-around">
+        <Box>
           <Button onClick={() => setActiveRange("short")}>This Month</Button>
-        </li>
-        <li>
+        </Box>
+        <Box>
           <Button onClick={() => setActiveRange("medium")}>
             Last 6 Months
           </Button>
-        </li>
-        <li>
+        </Box>
+        <Box>
           <Button onClick={() => setActiveRange("long")}>All Time</Button>
-        </li>
-      </ul>
-      <ul>
+        </Box>
+      </SimpleGrid>
+      <SimpleGrid columns={4} spacingX="2rem" spacingY="5rem" p="5rem">
         {data?.data?.items.map((track) => (
-          <li key={track.id}>
-            <div>{track.name}</div>
-          </li>
+          <Box key={track.id}>
+            <Image boxSize="100%" src={track.album.images[0].url} />
+            <Text fontSize="sm" noOfLines={[1]}>
+              {track.name}
+            </Text>
+            <Text fontSize="md" as="b">
+              {track.artists[0].name}
+            </Text>
+          </Box>
         ))}
-      </ul>
+      </SimpleGrid>
     </>
   );
 }

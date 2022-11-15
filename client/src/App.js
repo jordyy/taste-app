@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import Routing from "./Routing";
-import { Box, Image, Button, Link } from "@chakra-ui/react";
+import { Box, Image, Flex, Button, Text, Link } from "@chakra-ui/react";
+import { RepeatIcon } from "@chakra-ui/icons";
+// import { Link } from "react-router-dom";
+import TopTracks from "./components/TopTracks";
 
 const spotifyAPI = new SpotifyWebApi();
 
@@ -47,25 +50,28 @@ function App() {
   };
 
   return (
-    <Box>
-      <Routing />
-      {!loggedIn && (
-        <Link as={Button} href={"http://localhost:8888"}>
-          Login to Spotify
-        </Link>
-      )}
-      {loggedIn && (
-        <>
-          <Box>Now Playing: {nowPlaying.name}</Box>
-          <Box>
-            <Image src={nowPlaying.albumArt} alt="album art" />
-          </Box>
-        </>
-      )}
-      {loggedIn && (
-        <Button onClick={() => getNowPlaying()}>Check Now Playing</Button>
-      )}
-    </Box>
+    <>
+      <Flex justifyContent="space-between">
+        <Routing />
+        {!loggedIn && (
+          <Button as={Link} href="http://localhost:8888/login">
+            Login to Spotify
+          </Button>
+        )}
+        {loggedIn && (
+          <>
+            <Box display="flex" alignItems="flex-end">
+              <Image boxSize="80px" src={nowPlaying.albumArt} alt="album art" />
+              <Button onClick={() => getNowPlaying()}>
+                <RepeatIcon />
+              </Button>
+              <Text fontSize="1xl">Now Playing: {nowPlaying.name}</Text>
+            </Box>
+          </>
+        )}
+      </Flex>
+      <TopTracks />
+    </>
   );
 }
 
