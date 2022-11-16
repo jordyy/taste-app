@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import apiClient from "../http-common";
 import { useQuery } from "@tanstack/react-query";
 import { Image, Button, SimpleGrid, Text, Box } from "@chakra-ui/react";
+import TrackFeatures from "./TrackFeatures";
 
 const getTopTracks = ({ queryKey }) => {
   const [, activeRange] = queryKey;
@@ -12,6 +13,8 @@ function TopTracks() {
   const [activeRange, setActiveRange] = useState("short");
 
   const { data, refetch } = useQuery(["topTracks", activeRange], getTopTracks);
+  const trackIds =
+    '"' + data?.data?.items.map((track) => track.id).join() + '"';
 
   return (
     <>
@@ -28,6 +31,9 @@ function TopTracks() {
           <Button onClick={() => setActiveRange("long")}>All Time</Button>
         </Box>
       </SimpleGrid>
+      <TrackFeatures
+        trackIds={{ trackIds: data?.data?.items.map((track) => track.id) }}
+      />
       <SimpleGrid columns={4} spacingX="2rem" spacingY="5rem" p="5rem">
         {data?.data?.items.map((track) => (
           <Box key={track.id}>

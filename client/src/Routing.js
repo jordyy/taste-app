@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import TopTracks from "./components/TopTracks";
+import TrackFeatures from "./components/TrackFeatures";
 import { Box, Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 
@@ -8,6 +9,7 @@ function Routing() {
     <Routes>
       <Route path="*" element={<Layout />}>
         <Route path="toptracks" element={<TopTracks />} />
+        <Route path="trackfeatures" element={<TrackFeatures />} />
       </Route>
     </Routes>
   );
