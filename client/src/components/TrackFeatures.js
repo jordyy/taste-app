@@ -15,28 +15,30 @@ function TrackFeatures(trackIds) {
 
   console.log(
     "all of the Data",
-    data?.data?.audio_features.slice(1).map((track) => track)
+    data?.data?.audio_features
+      .filter(Boolean)
+      .map((track) => track.danceability)
   );
 
   return (
     <>
-      {/* <SimpleGrid columns={4} spacingX="2rem" spacingY="5rem" p="5rem">
-        {data?.data?.audio_features.slice(1).map((track) => (
+      <SimpleGrid columns={4} spacingX="2rem" spacingY="5rem" p="5rem">
+        {data?.data?.audio_features.filter(Boolean).map((track) => (
           <Box key={track.id}>
             <Text fontSize="sm">
-              {track.acousticness}
-              {track.danceability}
-              {track.energy}
-              {track.instrumentalness}
-              {track.liveness}
-              {track.loudness}
-              {track.speachiness}
-              {track.tempo}
-              {track.valence}
+              Acousticness: {track.acousticness}
+              Danceability: {track.danceability}
+              Energy: {track.energy}
+              Instrumentalness: {track.instrumentalness}
+              Liveness: {track.liveness}
+              Loudness: {track.loudness}
+              Speechiness: {track.speechiness}
+              Tempo: {track.tempo}
+              Valence: {track.valence}
             </Text>
           </Box>
         ))}
-      </SimpleGrid> */}
+      </SimpleGrid>
     </>
   );
 }
